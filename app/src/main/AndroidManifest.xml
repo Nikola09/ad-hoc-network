@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.adhocnetwork.adhocnetwork">
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.bluetooth"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".SharingService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".SendFilesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".StartActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--
+ <meta-data android:name="com.here.android.maps.appid" android:value="v7eAVeE2rnfzoT134G19"/>
+        <meta-data android:name="com.here.android.maps.apptoken" android:value="dkcbTEJW8sMG6ODmGQQhhg"/>
+        <meta-data android:name="com.here.android.maps.license.key" android:value="koSP6mIlJ4BW5mw99RUfkpX2TQyWSmeVTL4AOe7np8m0xhXPj1RNoGpr5aLqCdI+Jko+V0/wqOm7x8CfvW6uH2DyFrY4Ib8uLaZQG9J6X+P9k5bez1rQXN2YBWNvxXueiTyTcr+7YDxJgfNNMzWWMi+qc4iaDaTev8sc2VPty3bAyk4t99yyZvVwfNNuLXpH8QajjSpRgcPwC14wPG5y3Wg+5vjoNLMw6zC+O85IamgpZl2HBzK4L+VJ9SQ1Zl25GZIS/03hNJRv7Sr9ILIK8JCcZFQaHzyr1XxVuwSQK7RXLRvxOIXGi3LkiZkYfbT75TnANvPr/d7fMXWRlB/VCUdQAtdcMwZaaNvyn9qCdeQohfj2RRr5XBtC7iSsSPavkWukNag4L4cTCMxz1GC1p51hYiunmEiSIbpHSE0BivmaEtyTLYaOq7QZ2f1RiECdOkamBQiN5zuhbKoUjis25RHvtKgIp673wLVoCxlVvhgvctr7HQSCAF1wUX2FQX7+XTLod/8AIw/TULis7DQpznvfvC9Hmw65Pe42Fy8OztXxNO1tXE9t6SnEJ2ihZURPi/nOwaP5aRGYbCYjVUkYu9ZxB8cawCQiYOPMVuOlEkzsKhJ8vCgaqp85F42Ok2N6y40+Gyu5t1BmGeNw9rxcIRPd4Yp3jIm6IecvT1/iqoM="/>
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA118TTHl4CdeOY0ADdtyJ1sGAdNUa9q9s" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.adhocnetwork.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+
+</manifest>
