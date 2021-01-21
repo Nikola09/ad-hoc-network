@@ -16,6 +16,7 @@ import android.os.Bundle;
 
 import com.example.adhocnetwork.adhocnetwork.ui.main.CreateList;
 import com.example.adhocnetwork.adhocnetwork.ui.main.MapFragment;
+import com.example.adhocnetwork.adhocnetwork.ui.main.UsersFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.nearby.connection.ConnectionResolution;
 import com.google.android.gms.nearby.connection.Payload;

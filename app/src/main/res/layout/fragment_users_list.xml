@@ -57,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSendFiles"
-        tools:context=".UsersFragment"
+        tools:context=".ui.main.UsersFragment"
         tools:listitem="@layout/fragment_users" />
 
     <ImageButton

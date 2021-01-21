@@ -1,4 +1,4 @@
-package com.example.adhocnetwork.adhocnetwork;
+package com.example.adhocnetwork.adhocnetwork.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.adhocnetwork.adhocnetwork.ConnectionService;
+import com.example.adhocnetwork.adhocnetwork.MyData;
+import com.example.adhocnetwork.adhocnetwork.R;
+import com.example.adhocnetwork.adhocnetwork.SendFilesActivity;
+import com.example.adhocnetwork.adhocnetwork.SettingsActivity;
+import com.example.adhocnetwork.adhocnetwork.UserData;
+
 /**
  * A fragment representing a list of Items.
  */
@@ -26,7 +33,7 @@ public class UsersFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private MyData mMyData;
-    MyUserRecyclerViewAdapter adapter;
+    UserRecyclerViewAdapter adapter;
     private TextView txtSensors;
     private TextView txtHealthSensors;
 
@@ -75,13 +82,13 @@ public class UsersFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            adapter = new MyUserRecyclerViewAdapter(mMyData.getUsers());
-            //adapter.notifyDataSetChanged();
+            adapter = new UserRecyclerViewAdapter(mMyData.getUsers());
+
             /*adapter.setOnItemClickListener(new MyUserRecyclerViewAdapter.ClickListener() {
                 @Override
                 public void onItemClick(int position, View v) {
                     Toast.makeText(v.getContext(), "Click on " + position, Toast.LENGTH_SHORT).show();
-                    // OPEN NEW USER_INFO ACTIVITY intent
+                    // something on click
                 }
             });*/
             recyclerView.setAdapter(adapter);

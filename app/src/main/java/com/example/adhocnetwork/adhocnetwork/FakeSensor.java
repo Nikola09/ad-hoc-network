@@ -2,8 +2,8 @@ package com.example.adhocnetwork.adhocnetwork;
 
 import java.util.Random;
 
-public class FakeSensor {  //public class FakeSensor<T> to be generic if needed & changed value's int to T
-    //fake sensor
+public class FakeSensor {
+
     public int setSensorTimeCount;
     public int setSensorTriggerValue;
     public int[] previousValues;

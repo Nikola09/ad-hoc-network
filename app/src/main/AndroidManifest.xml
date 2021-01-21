@@ -56,11 +56,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--
- <meta-data android:name="com.here.android.maps.appid" android:value="v7eAVeE2rnfzoT134G19"/>
-        <meta-data android:name="com.here.android.maps.apptoken" android:value="dkcbTEJW8sMG6ODmGQQhhg"/>
-        <meta-data android:name="com.here.android.maps.license.key" android:value="koSP6mIlJ4BW5mw99RUfkpX2TQyWSmeVTL4AOe7np8m0xhXPj1RNoGpr5aLqCdI+Jko+V0/wqOm7x8CfvW6uH2DyFrY4Ib8uLaZQG9J6X+P9k5bez1rQXN2YBWNvxXueiTyTcr+7YDxJgfNNMzWWMi+qc4iaDaTev8sc2VPty3bAyk4t99yyZvVwfNNuLXpH8QajjSpRgcPwC14wPG5y3Wg+5vjoNLMw6zC+O85IamgpZl2HBzK4L+VJ9SQ1Zl25GZIS/03hNJRv7Sr9ILIK8JCcZFQaHzyr1XxVuwSQK7RXLRvxOIXGi3LkiZkYfbT75TnANvPr/d7fMXWRlB/VCUdQAtdcMwZaaNvyn9qCdeQohfj2RRr5XBtC7iSsSPavkWukNag4L4cTCMxz1GC1p51hYiunmEiSIbpHSE0BivmaEtyTLYaOq7QZ2f1RiECdOkamBQiN5zuhbKoUjis25RHvtKgIp673wLVoCxlVvhgvctr7HQSCAF1wUX2FQX7+XTLod/8AIw/TULis7DQpznvfvC9Hmw65Pe42Fy8OztXxNO1tXE9t6SnEJ2ihZURPi/nOwaP5aRGYbCYjVUkYu9ZxB8cawCQiYOPMVuOlEkzsKhJ8vCgaqp85F42Ok2N6y40+Gyu5t1BmGeNw9rxcIRPd4Yp3jIm6IecvT1/iqoM="/>
-        -->
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA118TTHl4CdeOY0ADdtyJ1sGAdNUa9q9s" />

@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.adhocnetwork.adhocnetwork.R;
-import com.example.adhocnetwork.adhocnetwork.UsersFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

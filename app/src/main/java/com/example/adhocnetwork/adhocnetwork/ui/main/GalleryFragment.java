@@ -1,17 +1,9 @@
 package com.example.adhocnetwork.adhocnetwork.ui.main;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
@@ -22,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.adhocnetwork.adhocnetwork.MyData;
 import com.example.adhocnetwork.adhocnetwork.R;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class GalleryFragment extends Fragment {
@@ -55,7 +46,7 @@ public class GalleryFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity().getApplicationContext(),2);
         recyclerView.setLayoutManager(layoutManager);
         imgLists = mMyData.returnImages();
-        MyAdapter adapter = new MyAdapter(getActivity().getApplicationContext(), imgLists);
+        GalleryAdapter adapter = new GalleryAdapter(getActivity().getApplicationContext(), imgLists);
         recyclerView.setAdapter(adapter);
     }
 

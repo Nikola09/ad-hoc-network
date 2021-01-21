@@ -270,15 +270,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                     .position(userLoc)
                     .title(showName)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.baseline_person_black_18)));
-            userMarkers.put(name, marker);//endpointid
+            userMarkers.put(name, marker);
         }
     }
-    public void DeleteUserMarker(String fullName)//String endpointID
+    public void DeleteUserMarker(String fullName)
     {
         if (userMarkers != null)
             Objects.requireNonNull(userMarkers.remove(fullName)).setVisible(false);
     }
-    public void refreshMarkerForUser(/*String endpoint,*/ UserDataTransfer data)
+    public void refreshMarkerForUser(UserDataTransfer data)
     {
         if (userMarkers == null) {
             AddUserMarker(data.Name, data.Name.split("=")[0]);
@@ -291,7 +291,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
         if (followingUser != null)
         {
-            if (followingUser.Name.equals(data.Name))//endpointid
+            if (followingUser.Name.equals(data.Name))
             {
                 followingUser.SetUserData(data);
                 refreshPolyline(followingUser.getLatLng());

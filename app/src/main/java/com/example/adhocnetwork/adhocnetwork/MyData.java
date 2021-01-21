@@ -50,7 +50,7 @@ public class MyData {
 
     private int olTimeSetting = 18;
     private int olValueSetting = 10;
-    private int olStartingValue = 95;
+    private int olStartingValue = 96;
     private int olMaximum = 103;
     private int olMinimum = 85;
     private int olChange = 2;
@@ -100,7 +100,7 @@ public class MyData {
     }
 
     public UserDataTransfer getMyDataTransfer() {
-        return new UserDataTransfer(name,latitude, longitude,/*targetLatitude,targetLongitude,*/batteryLevel,
+        return new UserDataTransfer(name,latitude, longitude,batteryLevel,
                 hasLightSensor,hasTemperatureSensor,hasPressureSensor,light,temperature,pressure,heartrate.sensorValue,upperPressure.sensorValue,lowerPressure.sensorValue,bloodOxygenLevel.sensorValue,heartrate.sensorAlarm);
     }
 
@@ -123,10 +123,9 @@ public class MyData {
         users.add(ud);
     }
 
-    public int removeUser(String userFullName)//endpointId
+    public int removeUser(String userFullName)
     {
         for (int i=0; i<users.size(); i++) {
-            //if(users.get(i).EndpointId.equals(endpointId))
             if(users.get(i).Name.equals(userFullName))
             {
                 users.remove(i);
@@ -136,20 +135,14 @@ public class MyData {
         return 0;
     }
 
-    public int refreshUser(/*String eid,*/UserDataTransfer u)
+    public int refreshUser(UserDataTransfer u)
     {
         for (int i=0; i<users.size(); i++) {
-            //if(users.get(i).EndpointId.equals(eid))
             if(users.get(i).Name.equals(u.Name))
             {
                 users.get(i).SetUserData(u);
                 users.get(i).CalculateDistance(this.latitude, this.longitude);
-//                if (users.get(i).TargetLon != null && amFlagging)
-//                {
-//                    amFlagging = false;
-//                    targetLongitude = null;
-//                    targetLatitude = null;
-//                }
+
                 return i;
             }
         }
@@ -353,10 +346,6 @@ public class MyData {
         lowerPressure.updateFakeSensor();
         bloodOxygenLevel.updateFakeSensor();
         if(bloodOxygenLevel.sensorValue > 100) bloodOxygenLevel.sensorValue=100;
-    }
-    public int getHeartRate()
-    {
-        return heartrate.sensorValue;
     }
     public boolean getHealthAlarm()
     {

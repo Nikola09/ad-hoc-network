@@ -1,4 +1,4 @@
-package com.example.adhocnetwork.adhocnetwork;
+package com.example.adhocnetwork.adhocnetwork.ui.main;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -7,14 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.adhocnetwork.adhocnetwork.MyData;
+import com.example.adhocnetwork.adhocnetwork.R;
+import com.example.adhocnetwork.adhocnetwork.UserData;
+
 import java.util.List;
 
-public class MyUserRecyclerViewAdapter extends RecyclerView.Adapter<MyUserRecyclerViewAdapter.ViewHolder> {
+public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerViewAdapter.ViewHolder> {
 
     private final List<UserData> mValues;
     private ClickListener clickListener;
 
-    public MyUserRecyclerViewAdapter(List<UserData> items) {
+    public UserRecyclerViewAdapter(List<UserData> items) {
         mValues = items;
     }
 

@@ -70,23 +70,23 @@ public class SettingsActivity extends AppCompatActivity {
     }
     private int CorrectedValue(int min,int max,int defaultValue, String value)
     {
-        int res;
+        int result;
         try {
-            res = Integer.parseInt(value);
+            result = Integer.parseInt(value);
         }
         catch (Exception e)
         {
-            res = defaultValue;
+            result = defaultValue;
         }
-        if (res < min)
+        if (result < min)
         {
-            res = min;
+            result = min;
         }
-        else if (res > max)
+        else if (result > max)
         {
-            res = max;
+            result = max;
         }
-        return res;
+        return result;
     }
 
 

@@ -6,8 +6,6 @@ public class UserDataTransfer implements Serializable {
     public String Name;
     public double Lat;
     public double Lon;
-    //public Double TargetLat;
-    //public Double TargetLon;
     public int BatteryLevel;
     public boolean HasTemperatureSensor;
     public boolean HasLightSensor;
@@ -21,13 +19,11 @@ public class UserDataTransfer implements Serializable {
     public int bloodOxygenLevel;
     public boolean healthAlarm;
 
-    public UserDataTransfer(String n, double la, double lo,/* Double tla, Double tlo,*/int blevel,boolean hl, boolean ht, boolean hp, float l, float t, float p,int heart,int up, int lp, int ol, boolean hAlarm)
+    public UserDataTransfer(String n, double la, double lo,int blevel,boolean hl, boolean ht, boolean hp, float l, float t, float p,int heart,int up, int lp, int ol, boolean hAlarm)
     {
         Name=n;
         Lat=la;
         Lon=lo;
-        //TargetLat=tla;
-        //TargetLon=tlo;
         BatteryLevel = blevel;
         HasTemperatureSensor = ht;
         HasLightSensor = hl;
