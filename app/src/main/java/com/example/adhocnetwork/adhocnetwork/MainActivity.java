@@ -10,10 +10,14 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.example.adhocnetwork.adhocnetwork.ui.main.ChatFragment;
 import com.example.adhocnetwork.adhocnetwork.ui.main.CreateList;
 import com.example.adhocnetwork.adhocnetwork.ui.main.MapFragment;
 import com.example.adhocnetwork.adhocnetwork.ui.main.UsersFragment;
@@ -41,17 +45,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-/*import com.here.android.mpa.common.GeoCoordinate;
-import com.here.android.mpa.common.GeoPosition;
-import com.here.android.mpa.common.LocationDataSource;
-import com.here.android.mpa.common.LocationDataSourceGoogleServices;
-import com.here.android.mpa.common.OnEngineInitListener;
-import com.here.android.mpa.common.PositioningManager;
-import com.here.android.mpa.mapping.Map;
-import com.here.android.mpa.mapping.AndroidXMapFragment;
-import com.here.android.mpa.mapping.MapCircle;
-import com.here.android.mpa.mapping.MapMarker;
-import com.here.android.mpa.mapping.MapObject;*/
 
 public class MainActivity extends FragmentActivity implements SensorEventListener {
 
@@ -59,6 +52,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
     private double startingLongitude = 21.896666;//start in nis
     private MapFragment mapFragment;
     private UsersFragment usersFragment;
+    private ChatFragment chatFragment;
 
     private ConnectionService mConnectionService;
     private MyData mMyData;
@@ -149,6 +143,15 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
     public void onPayloadReceivedAlt(String endpointId, Payload payload) {
         //onReceive(mEstablishedConnections.get(endpointId), payload);
         if (payload.getType() == Payload.Type.BYTES) {
+            try {
+                ChatMessage cm = (ChatMessage) MyData.deserialize(payload.asBytes());
+                mMyData.addMessage(cm);
+                if (chatFragment != null)
+                    chatFragment.insertSingleItem(cm);
+                playRingtone();
+            }
+            catch (Exception exc){
+
             if (payload.asBytes().length < 70) {
                 String payloadString = new String(payload.asBytes(), StandardCharsets.UTF_8);
                 if (payloadString.startsWith("cmd_remove=") )
@@ -211,10 +214,14 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
                     }
 
                     System.out.println(mMyData.getUsers().size() + " " + udt.Name);
-                    //Toast.makeText(getApplicationContext(), "Got his data location!", Toast.LENGTH_LONG).show();
+                    if(usersFragment != null)
+                    {
+                        usersFragment.updateMySensors();
+                    }
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
+            }
             }
 
         } else if (payload.getType() == Payload.Type.FILE) {
@@ -415,6 +422,7 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
         sectionsPagerAdapter.startUpdate(viewPager);
         mapFragment = (MapFragment) sectionsPagerAdapter.instantiateItem(viewPager, 0);
         usersFragment = (UsersFragment) sectionsPagerAdapter.instantiateItem(viewPager, 1);
+        chatFragment = (ChatFragment) sectionsPagerAdapter.instantiateItem(viewPager, 2);
         sectionsPagerAdapter.finishUpdate(viewPager);
 
         mMyData = MyData.getInstance();
@@ -545,134 +553,15 @@ public class MainActivity extends FragmentActivity implements SensorEventListene
             notificationManager.createNotificationChannel(channel);
         }
     }
+
+    public void playRingtone(){
+        try {
+            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+            r.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 
-
-
-
-
-/** Callbacks for connections to other devices. */
-    /*private final ConnectionLifecycleCallback mConnectionLifecycleCallback =
-            new ConnectionLifecycleCallback() {
-                @Override
-                public void onConnectionInitiated(String endpointId, ConnectionInfo connectionInfo) {
-                    mConnectionService.onConnectionInitiatedAlt(endpointId, connectionInfo);
-                }
-                @Override
-                public void onConnectionResult(String endpointId, ConnectionResolution result) {
-                    mConnectionService.onConnectionResultAlt(endpointId, result);
-                    Toast.makeText(getApplicationContext(), "ConRes| " + result.getStatus().getStatusMessage(), Toast.LENGTH_LONG).show();
-                    //NEED TO ADD NEW USER HERE
-                    if (result.getStatus().isSuccess())
-                    {
-                        for (ConnectionService.Endpoint e : mConnectionService.getConnectedEndpoints()) {
-                            if (e.getId().equals(endpointId)){
-                                UserData ud = new UserData(e.getName(), e.getId(), startingLatitude, startingLongitude, null, null);
-                                mMyData.addUser(ud);
-                                if (mapFragment == null)
-                                mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.myMapFragment);
-                                if (mapFragment != null)
-                                    mapFragment.AddUserMarker(ud);
-
-                                if (usersFragment == null)
-                                    usersFragment = (UsersFragment) getSupportFragmentManager().findFragmentById(R.id.myUsersFragment);
-                                if (usersFragment != null)
-                                    usersFragment.insertSingleItem(ud);
-                            }
-                        }
-                    }
-                }
-                @Override
-                public void onDisconnected(String endpointId) {
-                    mConnectionService.onDisconnectedAlt(endpointId);
-                    Toast.makeText(getApplicationContext(), "Disconnected from endpoint! Left:"+mConnectionService.getConnectedEndpoints().size(), Toast.LENGTH_LONG).show();
-                    if(mConnectionService.getConnectedEndpoints().size() == 0)
-                        finish();//MainActivity.this.finish();//this is useless?
-                    else
-                    {
-                        int remIndex = mMyData.removeUser(endpointId);
-                        if (mapFragment == null)
-                            mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.myMapFragment);
-                        if (mapFragment != null)
-                            mapFragment.DeleteUserMarker(endpointId);
-
-                        if (usersFragment == null)
-                            usersFragment = (UsersFragment) getSupportFragmentManager().findFragmentById(R.id.myUsersFragment);
-                        if (usersFragment != null)
-                            usersFragment.removeSingleItem(remIndex);
-                    }
-                }
-            };*/
-
-/** Callbacks for payloads (bytes of data) (files) sent from another device to us. */
-    /*private final PayloadCallback mPayloadCallback =
-            new PayloadCallback() {
-                @Override
-                public void onPayloadReceived(String endpointId, Payload payload) {
-                    //onReceive(mEstablishedConnections.get(endpointId), payload);
-                    //Toast.makeText(getApplicationContext(), "im getting payload", Toast.LENGTH_LONG).show();
-                    if (payload.getType() == Payload.Type.BYTES) {//MORA SE PROVERITI KOJA VRSTA JE:FILENAME OR LOCATION_SHARE
-                        if (payload.asBytes().length < 45) {
-                            String payloadFilenameMessage = new String(payload.asBytes(), StandardCharsets.UTF_8);
-                            long payloadId = addPayloadFilename(payloadFilenameMessage);
-                            processFilePayload(payloadId); //COMMENTED FOR TESTING;   ENEBLE IT
-                            Toast.makeText(getApplicationContext(), "Didnt expect this bytes!", Toast.LENGTH_LONG).show();
-
-                        }
-                        else
-                        {
-                            try {
-                                UserDataTransfer udt = (UserDataTransfer)MyData.deserialize( payload.asBytes() );
-                                int index = mMyData.refreshUser(endpointId,udt);
-                                if (mapFragment == null)
-                                mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.myMapFragment);
-                                if (mapFragment != null)
-                                mapFragment.refreshMarkerForUser(endpointId,udt);
-
-                                if (usersFragment == null)
-                                    usersFragment = (UsersFragment) getSupportFragmentManager().findFragmentById(R.id.myUsersFragment);
-                                if (usersFragment != null)
-                                    usersFragment.updateSingleItem(index);
-
-                                Toast.makeText(getApplicationContext(), "Got his data location!", Toast.LENGTH_LONG).show();
-                            } catch (IOException | ClassNotFoundException e) {//ILI MOZDA PROVERITI DAL JE OVAJ EXCEPTION
-                                e.printStackTrace();
-                            }
-                        }
-
-                    } else if (payload.getType() == Payload.Type.FILE) {
-                        // Add this to our tracking map, so that we can retrieve the payload later.
-                        incomingFilePayloads.put(payload.getId(), payload);
-                    }
-                }
-                @Override
-                public void onPayloadTransferUpdate(String endpointId, PayloadTransferUpdate update) {
-
-                    if (update.getStatus() == PayloadTransferUpdate.Status.SUCCESS) {
-                        long payloadId = update.getPayloadId();
-                        Payload payload = incomingFilePayloads.remove(payloadId);
-                        completedFilePayloads.put(payloadId, payload);
-                        if (payload.getType() == Payload.Type.FILE) {
-                            processFilePayload(payloadId);
-                        }
-                    }
-                }
-
-            };*/
-
-/*
-    private final EndpointDiscoveryCallback mEndpointDiscoveryCallback = new EndpointDiscoveryCallback() {
-        @Override
-        public void onEndpointFound(String endpointId, DiscoveredEndpointInfo info) {
-
-            if (mConnectionService.getServiceId().equals(info.getServiceId())) {
-                Toast.makeText(getApplicationContext(), endpointId + "| "+ info.getEndpointName(), Toast.LENGTH_LONG).show();
-                mConnectionService.onEndpointFoundAlt(endpointId, info);
-            }
-        }
-
-        @Override
-        public void onEndpointLost(String endpointId) {
-            Toast.makeText(getApplicationContext(), "Endpoint lost!", Toast.LENGTH_LONG).show();
-        }
-    };*/

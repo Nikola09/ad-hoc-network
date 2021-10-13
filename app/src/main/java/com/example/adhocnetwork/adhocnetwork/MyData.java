@@ -65,12 +65,14 @@ public class MyData {
     private boolean amFlagging;
 
     private ArrayList<UserData> users;
+    private ArrayList<ChatMessage> messages;
     private ArrayList<CreateList> images;
 
     private MyData()
     {
         users = new ArrayList<UserData>();
         images = new ArrayList<CreateList>();
+        messages = new ArrayList<ChatMessage>();
         heartrate = new FakeSensor(hrTimeSetting/resendTime,hrValueSetting,hrStartingValue,hrMaximum,hrMinimum,hrChange);
         upperPressure = new FakeSensor(pTimeSetting/resendTime,pValueSetting, upStartingValue,upMaximum,upMinimum,pChange);
         lowerPressure = new FakeSensor(pTimeSetting/resendTime, pValueSetting, lpStartingValue,lpMaximum,lpMinimum,pChange);
@@ -79,6 +81,16 @@ public class MyData {
 
     public ArrayList<UserData> getUsers() {
         return users;
+    }
+
+    public ArrayList<ChatMessage> getMessages() {
+        return messages;
+    }
+    public void addMessage(ChatMessage cm) {
+        messages.add(cm);
+    }
+    public void clearMessages() {
+        messages.clear();
     }
 
     public void setMyInitialValues(String nam, double lat, double lon) {

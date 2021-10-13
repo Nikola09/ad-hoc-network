@@ -20,7 +20,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     private static final int[] TAB_TITLES = new int[]{
             R.string.tab_map,
             R.string.tab_text_2,
-            R.string.tab_text_3
+            R.string.tab_text_3,
+            R.string.tab_text_4
     };
     private final Context mContext;
 
@@ -37,6 +38,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             return MapFragment.newInstance();
         } else if (position == 1) {
             return UsersFragment.newInstance(1);
+        } else if (position == 2) {
+            return ChatFragment.newInstance();
         } else {
             return GalleryFragment.newInstance();
         }
@@ -51,7 +54,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 3 total pages.
-        return 3;
+        // Show 4 total pages.
+        return 4;
     }
 }

@@ -36,8 +36,8 @@
     <Button
         android:id="@+id/btnCloseTransfer"
         android:layout_width="match_parent"
-        android:layout_height="109dp"
-        android:layout_marginTop="124dp"
+        android:layout_height="119dp"
+        android:layout_marginTop="70dp"
         android:text="@string/btn_close_transfer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
